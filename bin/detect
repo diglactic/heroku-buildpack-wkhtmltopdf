@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # bin/detect BUILD_DIR
 
-if [ "$STACK" = "heroku-22" ]; then
+if [ $STACK = "heroku-22" ]; then
 	echo "heroku-buildpack-wkhtmltopdf"
 	exit 0
 else

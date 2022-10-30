@@ -7,7 +7,7 @@ CACHE_DIR=$2
 # exit when any command fails
 set -e
 
-BINARY_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb"
+BINARY_URL="${WKHTMLTOPDF_BINARY_URL:=https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb}"
 BINARY_FILENAME=$(basename $BINARY_URL)
 BINARY_OUTPUT_PATH=$BUILD_DIR/bin
 
@@ -21,8 +21,6 @@ function info() {
 
 if [ ! -d $WORKING_DIR ]; then
   mkdir -p $WORKING_DIR
-
-  echo $(ls "$WORKING_DIR")
 
   info "Fetching binary from $BINARY_URL"
 

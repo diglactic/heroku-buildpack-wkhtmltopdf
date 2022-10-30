@@ -1,18 +1,27 @@
-<h1 align="center">heroku-22-buildpack-wkhtmltopdf</h3>
+# heroku-buildpack-wkhtmltopdf
 
-<div align="center">
+Fork of https://github.com/kwrdie/heroku-22-buildpack-wkhtmltopdf. Mostly rewritten because OCD.
 
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+## Problem
 
-</div>
+Heroku's own [`heroku-community/apt`](https://github.com/heroku/heroku-buildpack-apt) buildpack allows successful
+installation of `wkhtmltopdf` through an `Aptfile`. However, it copies those files to `/.apt/usr/local/bin`, and
+does NOT link that directory to `PATH`, making it less than ideal for portable web apps.
+
+## Solution
+
+This is a somewhat unnecessary workaround to download `wkhtmltopdf` to `/app/bin/` (this is what Heroku's build
+directory
+ultimately links to, in case you're confused by the source code), and subsequently links `/app/bin/` to `PATH` the
+way the gods intended.
+
+## Notes
+
+You can override the binary URL via an environment variable:
+
+```dotenv
+WKHTMLTOPDF_BINARY_URL=https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
+```
 
 ---
-
-##  About <a name = "about"></a>
-
-Fork of https://github.com/RohanDebroy/heroku-buildpack-wkhtmltopdf to work with heroku-22 stack
-<br>Works also with heroku-20
-
-## License <a name="license"></a>
-MIT
+&copy; 2022 Diglactic, LLC
