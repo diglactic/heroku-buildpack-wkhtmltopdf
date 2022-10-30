@@ -19,21 +19,21 @@ function info() {
   echo "-----> $*"
 }
 
-if [ ! -d "$WORKING_DIR" ]; then
-  mkdir -p "$WORKING_DIR"
+if [ ! -d $WORKING_DIR ]; then
+  mkdir -p $WORKING_DIR
 
   echo $(ls "$WORKING_DIR")
 
   info "Fetching binary from $BINARY_URL"
 
   echo "Downloading to $DOWNLOAD_FILENAME"
-  wget -q -c "$BINARY_URL" -O="$DOWNLOAD_FILENAME"
+  wget -q -c $BINARY_URL -O=$DOWNLOAD_FILENAME
 
   echo "Extracting to $EXTRACT_DIR"
-  dpkg -x "$DOWNLOAD_FILENAME" "$EXTRACT_DIR"
+  dpkg -x $DOWNLOAD_FILENAME $EXTRACT_DIR
 
   echo 'Cleaning up download, preserving extracted version for future builds'
-  rm -f "$DOWNLOAD_FILENAME"
+  rm -f $DOWNLOAD_FILENAME
 else
   info 'Using cached binary'
   echo 'If cache is corrupt, clear it by running `heroku builds:cache:purge`'
