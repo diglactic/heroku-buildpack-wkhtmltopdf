@@ -18,7 +18,7 @@ way the gods intended.
 ## Usage
 
 ```shell
-heroku buildpacks:add https://github.com/diglactic/heroku-buildpack-wkhtmltopdf
+heroku buildpacks:add diglactic/heroku-buildpack-wkhtmltopdf
 ```
 
 You can override the binary URL via an environment variable:
