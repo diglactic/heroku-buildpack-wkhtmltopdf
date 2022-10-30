@@ -62,7 +62,7 @@ fi
 echo "Copying files to $BINARY_OUTPUT_PATH"
 cp $EXTRACT_DIR/usr/local/bin/* $BINARY_OUTPUT_PATH
 
-echo "Registering with PATH variable"
+echo 'Registering with PATH variable'
 export PATH="$BINARY_OUTPUT_PATH:$PATH"
 
 echo 'wkhtmltopdf is successfully installed'

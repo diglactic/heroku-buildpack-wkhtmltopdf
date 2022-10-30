@@ -1,6 +1,6 @@
 # heroku-buildpack-wkhtmltopdf
 
-Fork of https://github.com/kwrdie/heroku-22-buildpack-wkhtmltopdf. Mostly rewritten because OCD.
+Fork of https://github.com/kwrdie/heroku-22-buildpack-wkhtmltopdf. Largely rewritten.
 
 ## Problem
 
@@ -11,9 +11,10 @@ does NOT link that directory to `PATH`, making it less than ideal for portable w
 ## Solution
 
 This is a somewhat unnecessary workaround to download `wkhtmltopdf` to `/app/bin/` (this is what Heroku's build
-directory
-ultimately links to, in case you're confused by the source code), and subsequently links `/app/bin/` to `PATH` the
-way the gods intended.
+directory ultimately links to, in case you're confused by the source code), and subsequently adds `/app/bin/` to `PATH`
+the way the gods intended.
+
+This means, running `heroku run bash` and then `wkhtmltopdf` will work. Huzzah!
 
 ## Usage
 
