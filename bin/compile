@@ -9,14 +9,14 @@ set -e
 
 BINARY_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb"
 BINARY_FILENAME=$(basename $BINARY_URL)
-BINARY_OUTPUT_PATH=$BUILD_DIR/usr/local/bin
+BINARY_OUTPUT_PATH=/usr/local/bin
 
 WORKING_DIR=$CACHE_DIR/heroku-buildpack-wkhtmltopdf
 DOWNLOAD_FILENAME=$WORKING_DIR/$BINARY_FILENAME
 EXTRACT_DIR=$WORKING_DIR/output
 
 function info() {
-  echo -e "\n\n-----> $*\n\n"
+  echo "-----> $*"
 }
 
 if [ ! -d $WORKING_DIR ]; then
@@ -36,7 +36,7 @@ if [ ! -d $WORKING_DIR ]; then
   rm -f $DOWNLOAD_FILENAME
 else
   info 'Using cached binary'
-  echo 'If cache is corrupt, clear it by running `heroku builds:cache:purge`'
+  echo 'If cache is corrupt, clear it by running `heroku plugins:install heroku-builds && heroku builds:cache:purge` locally'
 fi
 
 info 'Installing'
