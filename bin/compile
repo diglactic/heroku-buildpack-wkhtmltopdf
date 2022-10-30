@@ -9,14 +9,14 @@ set -e
 
 BINARY_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb"
 BINARY_FILENAME=$(basename $BINARY_URL)
-BINARY_OUTPUT_PATH=$BUILD_DIR/bin
+BINARY_OUTPUT_PATH=$BUILD_DIR/usr/local/bin
 
 WORKING_DIR=$CACHE_DIR/heroku-buildpack-wkhtmltopdf
 DOWNLOAD_FILENAME=$WORKING_DIR/$BINARY_FILENAME
 EXTRACT_DIR=$WORKING_DIR/output
 
 function info() {
-  echo "\n-----> $*\n"
+  echo -e "\n-----> $*\n"
 }
 
 if [ ! -d $WORKING_DIR ]; then
@@ -41,7 +41,7 @@ fi
 
 info 'Installing'
 
-if ( !-d $BINARY_OUTPUT_PATH ); then
+if [ !-d $BINARY_OUTPUT_PATH ]; then
   mkdir -p $BINARY_OUTPUT_PATH
 fi
 
