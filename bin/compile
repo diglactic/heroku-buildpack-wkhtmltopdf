@@ -22,7 +22,7 @@ function info() {
 if [ ! -d "$WORKING_DIR" ]; then
   mkdir -p "$WORKING_DIR"
 
-  ls "$WORKING_DIR"
+  echo $(ls "$WORKING_DIR")
 
   info "Fetching binary from $BINARY_URL"
 
