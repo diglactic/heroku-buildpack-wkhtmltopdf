@@ -22,16 +22,14 @@ function info() {
 if [ ! -d "$WORKING_DIR" ]; then
   mkdir -p "$WORKING_DIR"
 
-  info 'Fetching binary'
+  ls "$WORKING_DIR"
 
-  echo "Downloading $BINARY_URL to $DOWNLOAD_FILENAME"
+  info "Fetching binary from $BINARY_URL"
+
+  echo "Downloading to $DOWNLOAD_FILENAME"
   wget -q -c "$BINARY_URL" -O="$DOWNLOAD_FILENAME"
 
   echo "Extracting to $EXTRACT_DIR"
-
-#  if [ ! -d "$EXTRACT_DIR" ]; then
-#    mkdir -p "$EXTRACT_DIR"
-#  fi
   dpkg -x "$DOWNLOAD_FILENAME" "$EXTRACT_DIR"
 
   echo 'Cleaning up download, preserving extracted version for future builds'
