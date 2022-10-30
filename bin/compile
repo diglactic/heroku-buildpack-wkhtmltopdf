@@ -44,16 +44,19 @@ if [ ! -d $WORKING_DIR ]; then
   echo "Extracting"
   dpkg -x $DOWNLOAD_FILENAME $EXTRACT_DIR
 
-  echo 'Removing all but `usr/local/bin`'
+  info "Cleaning up"
+
+  echo "Removing all but $EXTRACT_DIR/usr/local/bin, which contains our binaries"
   mv $EXTRACT_DIR/usr/local/bin $WORKING_DIR/tmp
   rm -rf $EXTRACT_DIR
   mv $WORKING_DIR/tmp $EXTRACT_DIR
 
-  echo 'Cleaning up binary download, preserving extracted version for future builds'
+  echo 'Removing binary download, remaining files will be cached for future builds'
   rm -f $DOWNLOAD_FILENAME
 else
-  info 'Using cached binary'
-  echo 'If cache is corrupt, clear it by running `heroku plugins:install heroku-builds && heroku builds:cache:purge` locally'
+  info 'Using cached binary. What could possibly go wrong?!'
+  echo $'If cache is corrupt or you\'re just feeling adventurous, clear it by running
+`heroku plugins:install heroku-builds && heroku builds:cache:purge` locally'
 fi
 
 # copy and register to PATH
@@ -70,4 +73,4 @@ cp $EXTRACT_DIR/* $BINARY_OUTPUT_PATH
 echo 'Registering with PATH variable'
 export PATH="$BINARY_OUTPUT_PATH:$PATH"
 
-echo 'wkhtmltopdf is successfully installed'
+echo 'wkhtmltopdf and its sidekick, wkhtmltoimage, are successfully installed'
