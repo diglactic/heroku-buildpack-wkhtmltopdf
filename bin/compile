@@ -16,7 +16,7 @@ DOWNLOAD_FILENAME=$WORKING_DIR/$BINARY_FILENAME
 EXTRACT_DIR=$WORKING_DIR/output
 
 function info() {
-  echo "-----> $*"
+  echo "\n-----> $*\n"
 }
 
 if [ ! -d $WORKING_DIR ]; then
@@ -40,6 +40,10 @@ else
 fi
 
 info 'Installing'
+
+if ( !-d $BINARY_OUTPUT_PATH ); then
+  mkdir -p $BINARY_OUTPUT_PATH
+fi
 
 echo "Copying files to $BINARY_OUTPUT_PATH"
 cp $EXTRACT_DIR/usr/local/bin/* $BINARY_OUTPUT_PATH
