@@ -9,7 +9,7 @@ set -e
 
 BINARY_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb"
 BINARY_FILENAME=$(basename $BINARY_URL)
-BINARY_OUTPUT_PATH=/usr/local/bin
+BINARY_OUTPUT_PATH=$BUILD_DIR/bin
 
 WORKING_DIR=$CACHE_DIR/heroku-buildpack-wkhtmltopdf
 DOWNLOAD_FILENAME=$WORKING_DIR/$BINARY_FILENAME
@@ -47,5 +47,8 @@ fi
 
 echo "Copying files to $BINARY_OUTPUT_PATH"
 cp $EXTRACT_DIR/usr/local/bin/* $BINARY_OUTPUT_PATH
+
+echo "Registering with PATH variable"
+export PATH="$BINARY_OUTPUT_PATH:$PATH"
 
 echo 'wkhtmltopdf is successfully installed'
