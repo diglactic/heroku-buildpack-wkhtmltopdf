@@ -12,26 +12,27 @@ BINARY_FILENAME=$(basename $BINARY_URL)
 OUTPUT_PATH=$BUILD_DIR/bin
 
 WORKING_DIR=$CACHE_DIR/heroku-buildpack-wkhtmltopdf
-DOWNLOAD_DIR=$WORKING_DIR/download
+DOWNLOAD_FILENAME=$WORKING_DIR/$BINARY_FILENAME
 EXTRACT_DIR=$WORKING_DIR/output
 
 function info() {
   echo "-----> $*"
 }
 
-if [ ! -d "$EXTRACT_DIR" ]; then
+if [ ! -d "$WORKING_DIR" ]; then
+  mkdir -p "$WORKING_DIR"
+
   info 'Fetching binary'
 
-  echo "Downloading $BINARY_URL to $DOWNLOAD_DIR"
-  mkdir -p "$DOWNLOAD_DIR"
-  wget -q -c "$BINARY_URL" -O="$DOWNLOAD_DIR"
+  echo "Downloading $BINARY_URL to $DOWNLOAD_FILENAME"
+  wget -q -c "$BINARY_URL" -O="$DOWNLOAD_FILENAME"
 
   echo "Extracting to $EXTRACT_DIR"
 
-  dpkg -x "$DOWNLOAD_DIR/$BINARY_FILENAME" "$EXTRACT_DIR"
+  dpkg -x "$DOWNLOAD_FILENAME" "$EXTRACT_DIR"
 
   echo 'Cleaning up download, preserving extracted version for future builds'
-  rm -rf "$DOWNLOAD_DIR"
+  rm -f "$DOWNLOAD_FILENAME"
 else
   info 'Using cached binary'
   echo 'If cache is corrupt, clear it by running `heroku builds:cache:purge`'
