@@ -48,7 +48,7 @@ if [ ! -d $WORKING_DIR ]; then
   debug "Extracting"
   dpkg -x $DOWNLOAD_FILENAME $EXTRACT_DIR
 
-  debug "Cleaning up"
+  info "Cleaning up"
 
   debug "Removing all but $EXTRACT_DIR/usr/local/bin, which contains our binaries"
   mv $EXTRACT_DIR/usr/local/bin $WORKING_DIR/tmp
@@ -78,3 +78,4 @@ debug 'Registering with PATH variable'
 export PATH="$BINARY_OUTPUT_PATH:$PATH"
 
 debug 'wkhtmltopdf and its sidekick, wkhtmltoimage, are successfully installed'
+info "Done!"
