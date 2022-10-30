@@ -12,11 +12,11 @@ set -e
 
 WKHTMLTOPDF_BINARY_URL_ENV_PATH="$ENV_DIR/WKHTMLTOPDF_BINARY_URL"
 
-if [ -f $WKHTMLTOPDF_BINARY_URL_ENV_PATH ];
+if [ -f $WKHTMLTOPDF_BINARY_URL_ENV_PATH ]; then
   BINARY_URL=$(cat $WKHTMLTOPDF_BINARY_URL_ENV_PATH)
 else
   BINARY_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb"
-then
+fi
 
 # helpers
 
