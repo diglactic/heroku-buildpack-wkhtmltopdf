@@ -51,7 +51,7 @@ if [ ! -d $WORKING_DIR ]; then
   rm -rf $EXTRACT_DIR
   mv $WORKING_DIR/tmp $EXTRACT_DIR
 
-  echo 'Removing binary download, remaining files will be cached for future builds'
+  echo 'Removing binary download; remaining files will be cached for future builds'
   rm -f $DOWNLOAD_FILENAME
 else
   info 'Using cached binary. What could possibly go wrong?!'
