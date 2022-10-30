@@ -3,11 +3,23 @@
 
 BUILD_DIR=$1
 CACHE_DIR=$2
+ENV_DIR=$3
 
 # exit when any command fails
 set -e
 
-BINARY_URL="${WKHTMLTOPDF_BINARY_URL:=https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb}"
+# load Heroku `WKHTMLTOPDF_BINARY_URL` env var if it exists
+
+WKHTMLTOPDF_BINARY_URL_ENV_PATH="$ENV_DIR/WKHTMLTOPDF_BINARY_URL"
+
+if [ -f $WKHTMLTOPDF_BINARY_URL_ENV_PATH ];
+  BINARY_URL=$(cat $WKHTMLTOPDF_BINARY_URL_ENV_PATH)
+else
+  BINARY_URL="https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb"
+then
+
+# helpers
+
 BINARY_FILENAME=$(basename $BINARY_URL)
 BINARY_OUTPUT_PATH=$BUILD_DIR/bin
 
@@ -18,6 +30,8 @@ EXTRACT_DIR=$WORKING_DIR/output
 function info() {
   echo "-----> $*"
 }
+
+# use Heroku cache to store downloaded and extracted binary
 
 if [ ! -d $WORKING_DIR ]; then
   mkdir -p $WORKING_DIR
@@ -36,6 +50,8 @@ else
   info 'Using cached binary'
   echo 'If cache is corrupt, clear it by running `heroku plugins:install heroku-builds && heroku builds:cache:purge` locally'
 fi
+
+# copy and register to PATH
 
 info 'Installing'
 

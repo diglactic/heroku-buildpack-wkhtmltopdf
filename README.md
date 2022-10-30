@@ -15,7 +15,11 @@ directory
 ultimately links to, in case you're confused by the source code), and subsequently links `/app/bin/` to `PATH` the
 way the gods intended.
 
-## Notes
+## Usage
+
+```shell
+heroku buildpacks:add https://github.com/diglactic/heroku-buildpack-wkhtmltopdf
+```
 
 You can override the binary URL via an environment variable:
 
