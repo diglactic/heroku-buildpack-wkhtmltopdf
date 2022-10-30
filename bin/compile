@@ -31,6 +31,10 @@ function info() {
   echo "-----> $*"
 }
 
+function debug() {
+  echo "       $*"
+}
+
 # use Heroku cache to store downloaded and extracted binary
 
 if [ ! -d $WORKING_DIR ]; then
@@ -38,24 +42,24 @@ if [ ! -d $WORKING_DIR ]; then
 
   info "Fetching binary from $BINARY_URL"
 
-  echo "Downloading to $DOWNLOAD_FILENAME"
+  debug "Downloading to $DOWNLOAD_FILENAME"
   wget $BINARY_URL -qcO $DOWNLOAD_FILENAME
 
-  echo "Extracting"
+  debug "Extracting"
   dpkg -x $DOWNLOAD_FILENAME $EXTRACT_DIR
 
-  info "Cleaning up"
+  debug "Cleaning up"
 
-  echo "Removing all but $EXTRACT_DIR/usr/local/bin, which contains our binaries"
+  debug "Removing all but $EXTRACT_DIR/usr/local/bin, which contains our binaries"
   mv $EXTRACT_DIR/usr/local/bin $WORKING_DIR/tmp
   rm -rf $EXTRACT_DIR
   mv $WORKING_DIR/tmp $EXTRACT_DIR
 
-  echo 'Removing binary download; remaining files will be cached for future builds'
+  debug 'Removing binary download; remaining files will be cached for future builds'
   rm -f $DOWNLOAD_FILENAME
 else
   info 'Using cached binary. What could possibly go wrong?!'
-  echo $'If cache is corrupt or you\'re just feeling adventurous, clear it by running
+  debug $'If cache is corrupt or you\'re just feeling adventurous, clear it by running
 `heroku plugins:install heroku-builds && heroku builds:cache:purge` locally'
 fi
 
@@ -67,10 +71,10 @@ if [ ! -d $BINARY_OUTPUT_PATH ]; then
   mkdir -p $BINARY_OUTPUT_PATH
 fi
 
-echo "Copying files to $BINARY_OUTPUT_PATH"
+debug "Copying files to $BINARY_OUTPUT_PATH"
 cp $EXTRACT_DIR/* $BINARY_OUTPUT_PATH
 
-echo 'Registering with PATH variable'
+debug 'Registering with PATH variable'
 export PATH="$BINARY_OUTPUT_PATH:$PATH"
 
-echo 'wkhtmltopdf and its sidekick, wkhtmltoimage, are successfully installed'
+debug 'wkhtmltopdf and its sidekick, wkhtmltoimage, are successfully installed'
