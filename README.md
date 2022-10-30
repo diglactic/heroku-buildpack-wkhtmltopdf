@@ -27,5 +27,12 @@ You can override the binary URL via an environment variable:
 WKHTMLTOPDF_BINARY_URL=https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb
 ```
 
+When changing this variable, you will need to clear the Heroku build cache by running this command locally:
+
+```shell
+heroku plugins:install heroku-builds
+heroku builds:cache:purge
+```
+
 ---
 &copy; 2022 Diglactic, LLC
