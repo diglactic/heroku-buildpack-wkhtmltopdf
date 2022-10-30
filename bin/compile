@@ -59,8 +59,7 @@ if [ ! -d $WORKING_DIR ]; then
   rm -f $DOWNLOAD_FILENAME
 else
   info 'Using cached binary. What could possibly go wrong?!'
-  debug $'If cache is corrupt or you\'re just feeling adventurous, clear it by running
-`heroku plugins:install heroku-builds && heroku builds:cache:purge` locally'
+  debug $'If cache is corrupt or you\'re just feeling adventurous, clear it by running `heroku plugins:install heroku-builds && heroku builds:cache:purge` locally'
 fi
 
 # copy and register to PATH
@@ -78,4 +77,4 @@ debug 'Registering with PATH variable'
 export PATH="$BINARY_OUTPUT_PATH:$PATH"
 
 debug 'wkhtmltopdf and its sidekick, wkhtmltoimage, are successfully installed'
-info "Done!"
+info "heroku-buildpack-wkhtmltopdf has left the chat"
