@@ -41,10 +41,15 @@ if [ ! -d $WORKING_DIR ]; then
   echo "Downloading to $DOWNLOAD_FILENAME"
   wget $BINARY_URL -qcO $DOWNLOAD_FILENAME
 
-  echo "Extracting to $EXTRACT_DIR"
+  echo "Extracting"
   dpkg -x $DOWNLOAD_FILENAME $EXTRACT_DIR
 
-  echo 'Cleaning up download, preserving extracted version for future builds'
+  echo 'Removing all but `usr/local/bin`'
+  mv $EXTRACT_DIR/usr/local/bin $WORKING_DIR/tmp
+  rm -rf $EXTRACT_DIR
+  mv $WORKING_DIR/tmp $EXTRACT_DIR
+
+  echo 'Cleaning up binary download, preserving extracted version for future builds'
   rm -f $DOWNLOAD_FILENAME
 else
   info 'Using cached binary'
@@ -60,7 +65,7 @@ if [ ! -d $BINARY_OUTPUT_PATH ]; then
 fi
 
 echo "Copying files to $BINARY_OUTPUT_PATH"
-cp $EXTRACT_DIR/usr/local/bin/* $BINARY_OUTPUT_PATH
+cp $EXTRACT_DIR/* $BINARY_OUTPUT_PATH
 
 echo 'Registering with PATH variable'
 export PATH="$BINARY_OUTPUT_PATH:$PATH"
